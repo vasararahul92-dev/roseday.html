@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rose Day 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+    font-family:'Poppins',sans-serif;
+    height:100vh;
+    background:linear-gradient(135deg,#ff4f8b,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:white;
+}
+
+/* ROSE RAIN */
+.rose{
+    position:fixed;
+    top:-40px;
+    font-size:26px;
+    animation:fall linear infinite;
+    pointer-events:none;
+}
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* HEART FLOAT */
+.heart-float{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+/* CARD */
+.card{
+    width:90%;
+    max-width:420px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,0,80,0.5);
+    animation:softPulse 2s infinite;
+}
+@keyframes softPulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.02)}
+    100%{transform:scale(1)}
+}
+
+h1{
+    font-size:28px;
+    text-shadow:0 0 15px #ff2f7f;
+}
+h2{margin-top:5px}
+
+/* INPUT */
+input{
+    margin-top:12px;
+    padding:10px;
+    width:80%;
+    border:none;
+    border-radius:20px;
+    text-align:center;
+    outline:none;
+}
+
+/* SLIDER */
+.slider{
+    margin:18px 0;
+    height:230px;
+    overflow:hidden;
+    border-radius:18px;
+}
+.slides{
+    display:flex;
+    width:300%;
+    animation:slide 10s infinite;
+}
+.slides img{
+    width:100%;
+    object-fit:cover;
+}
+@keyframes slide{
+    0%{transform:translateX(0)}
+    33%{transform:translateX(-100%)}
+    66%{transform:translateX(-200%)}
+    100%{transform:translateX(0)}
+}
+
+button{
+    padding:12px 30px;
+    border:none;
+    border-radius:25px;
+    background:white;
+    color:#ff2f7f;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(255,255,255,0.8);
+}
+
+/* LOVE PAGE */
+#love{
+    display:none;
+}
+.big-heart{
+    font-size:90px;
+    animation:beat 1s infinite;
+}
+@keyframes beat{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.3)}
+    100%{transform:scale(1)}
+}
+
+/* TYPEWRITER */
+.typewriter{
+    font-size:30px;
+    margin-top:10px;
+    text-shadow:0 0 15px #ff2f7f;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="card" id="page1">
+    <h1>🌹 Happy Rose Day 🌹</h1>
+    <h2 id="nameText">My Bestie 💕</h2>
+
+    <input type="text" placeholder="Enter her name 💖" oninput="setName(this.value)">
+
+    <div class="slider">
+        <div class="slides">
+            <img src="photo1.jpg">
+            <img src="photo2.jpg">
+            <img src="photo3.jpg">
+        </div>
+    </div>
+
+    <audio autoplay loop>
+        <source src="man-mera.mp3" type="audio/mpeg">
+    </audio>
+
+    <button onclick="goLove()">Next 💌</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="card" id="love">
+    <div class="typewriter" id="typeText"></div>
+    <h2 id="finalName"></h2>
+    <div class="big-heart">❤️</div>
+</div>
+
+<script>
+let girl="My Bestie";
+
+function setName(v){
+    girl = v || "My Bestie";
+    document.getElementById("nameText").innerText = girl+" 💕";
+}
+
+function goLove(){
+    document.getElementById("page1").style.display="none";
+    document.getElementById("love").style.display="block";
+    document.getElementById("finalName").innerText = girl;
+    typeWriter("I Love You 💖");
+}
+
+/* TYPEWRITER EFFECT */
+function typeWriter(text){
+    let i=0;
+    let speed=120;
+    let el=document.getElementById("typeText");
+    el.innerHTML="";
+    let timer=setInterval(()=>{
+        if(i<text.length){
+            el.innerHTML+=text.charAt(i);
+            i++;
+        }else{
+            clearInterval(timer);
+        }
+    },speed);
+}
+
+/* ROSE RAIN */
+for(let i=0;i<35;i++){
+    let r=document.createElement("div");
+    r.className="rose";
+    r.innerHTML="🌹";
+    r.style.left=Math.random()*100+"vw";
+    r.style.animationDuration=3+Math.random()*5+"s";
+    document.body.appendChild(r);
+}
+
+/* FLOATING HEARTS */
+for(let i=0;i<20;i++){
+    let h=document.createElement("div");
+    h.className="heart-float";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=4+Math.random()*6+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
